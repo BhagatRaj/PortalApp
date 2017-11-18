@@ -42,7 +42,7 @@ public class CreditController {
 		model.addAttribute("creditCardBean",creditCardBean);
 		return "CreditCardDetails";
 	}
-
+	//for git bash
 	@RequestMapping(value = "/submiCreditDetails", method = RequestMethod.POST)
 	public String addStudent(@ModelAttribute("creditCardBean") @Valid CreditCardBean creditCardBean,	
 				HttpServletRequest request) {
