@@ -37,6 +37,7 @@ public class CreditController {
 	@RequestMapping(value="/CreditDetails")
 	public String CreditDetails(Model model) {
 		//test for git
+		//rajan
 		CreditCardBean creditCardBean=new CreditCardBean();
 		model.addAttribute("creditCardBean",creditCardBean);
 		return "CreditCardDetails";
