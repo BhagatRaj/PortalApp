@@ -36,6 +36,7 @@ public class CreditController {
 
 	@RequestMapping(value="/CreditDetails")
 	public String CreditDetails(Model model) {
+		//test for git
 		CreditCardBean creditCardBean=new CreditCardBean();
 		model.addAttribute("creditCardBean",creditCardBean);
 		return "CreditCardDetails";
@@ -62,8 +63,7 @@ public class CreditController {
 	@RequestMapping(value="/showCreditDetails")
 	public String showDetials()
 	{
-		return "";
-		
+		return "";		
 	}
 	
 	@RequestMapping(value = "/exitFromCredit")
