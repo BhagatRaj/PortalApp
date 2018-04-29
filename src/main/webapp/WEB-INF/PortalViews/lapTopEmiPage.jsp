@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,10 +12,16 @@
 border-radius: 5px;
 border-color: lightgrey;
 margin-left: 80px;
+width:150px;
+}
+
+.footer-panel{
+	text-align: center;
+    clear: both;
+    padding: 200px 0px 10px;
 }
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style type="text/css">
@@ -35,7 +43,7 @@ $( function() {
 
 
 <div>
-	<form:form action="${pageContext.request.contextPath}/submitlaptopEmi" method="POST" modelAttribute="laptopEmiBean">        	
+	<form:form action="${pageContext.request.contextPath}/submitlaptopEmi" method="POST" modelAttribute="laptopEmiBean" id="laptopEmiForm">        	
         	<div align="center">
         		<h1><u>Laptop</u></h1>
         	</div>
@@ -52,7 +60,15 @@ $( function() {
         		</thead>
         		<tbody>
         			<tr>
-        				<td><input type="text" name="lapName" id="lapName" class="laptop-user-input"></td>
+        				<td>
+        				<select id="lapName" name="lapName" class="laptop-user-input">
+        				
+        				<option value="select">Select</option>
+        				<c:forEach var="iterateMapDetails" items="${laptopEmiBean}">
+        				<option value="${ iterateMapDetails.key}">${iterateMapDetails.value}</option>
+        				</c:forEach>
+        				</select>
+        				</td>
         				<td><input type="text" name="lapModel" id="lapModel" class="laptop-user-input"></td>
         				<td><input type="text" name="lapPurchaseDate" id="lapPurchaseDate" class="laptop-user-input"></td>
         				<td><input type="text" name="lapPurchaseEmi" id="lapPurchaseEmi" class="laptop-user-input"></td>
@@ -76,5 +92,11 @@ $( function() {
         </form:form>
        
 </div>
+
+<div class="footer-panel">
+		<p class="center">© 2017 - All Rights Reserved - MedBikePortal  | <a href="#">Terms of use</a> | <a href="#">Privacy Policy</a>
+		<span class="better-view">Best viewed in Google Chrome.</span></p>
+</div>
+
 </body>
 </html>

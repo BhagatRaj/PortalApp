@@ -6,24 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
-
-import java.sql.Connection;
-
 
 import com.tutorials.CreditDao.CreditDao;
 import com.tutorials.bean.CreditCardBean;
+import com.tutorials.sqlContans.MedSqlConstants;
 
 public class CreditDaoImpl implements CreditDao {
 	private DataSource dataSource;
 	JdbcTemplate jdbcTemplate;
+	
 	
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -64,8 +59,9 @@ public class CreditDaoImpl implements CreditDao {
 		
 		return creditCardBean;
 	}
+	/*
 
-	/*@Override
+	@Override
 	public List<CreditCardBean> getcreditDetails(CreditCardBean cardBean, String userName) {
 		//CreditCardBean cardBean2=null; 
 		List <CreditCardBean>list=new ArrayList<CreditCardBean>();
@@ -97,18 +93,33 @@ public class CreditDaoImpl implements CreditDao {
 
 		return list;
 	}
-*/	
-	public List<CreditCardBean> getcreditDetails(CreditCardBean cardBean, String userName) {
-		String sql="select CardName,CardNum,CreditExp,CredExpMonth,ExpenseYear,Comment,CardType,CardUser from creditcard where CardName=? and CardNum=? and CardUser=?";
+*/
+	public CreditCardBean getcreditDetails(CreditCardBean cardBean, String userName, String test) {
+		//String sql="select CardName,CardNum,CreditExp,CredExpMonth,ExpenseYear,Comment,CardType,CardUser from creditcard where CardName=? and CardNum=? and CardUser=?";
 		CreditCardBean cardBean2=null;
 		Connection connection=null;
 		List<CreditCardBean> cardBeansList=new ArrayList<>();
+		StringBuilder sqlBuilder=new StringBuilder();
 		try {
+			
+			sqlBuilder.append(MedSqlConstants.queryForCreditDetailsList);
+			if("addEmi".equals(test))
+			{
+				sqlBuilder.append(" where CardUser=? ");
+			}else {
+				sqlBuilder.append(" where CardName=? and CardNum=? and CredExpMonth=? and CardUser=? ");
+			}
+			
 			connection=dataSource.getConnection();
-			PreparedStatement preparedStatement=connection.prepareStatement(sql);
+			PreparedStatement preparedStatement=connection.prepareStatement(sqlBuilder.toString());
+			if(!"addEmi".equals(test)) {
 			preparedStatement.setString(1, cardBean.getCardName());
 			preparedStatement.setString(2, cardBean.getCardNum());
-			preparedStatement.setString(3, userName);
+			preparedStatement.setString(3, cardBean.getCardDate());
+			preparedStatement.setString(4, userName);
+			}else {
+				preparedStatement.setString(1, userName);
+			}
 			ResultSet set=preparedStatement.executeQuery();
 			
 			while(set.next()) {
@@ -121,13 +132,13 @@ public class CreditDaoImpl implements CreditDao {
 				cardBean2.setComment(set.getString("Comment"));
 				cardBean2.setCardType(set.getString("CardType"));
 				cardBean2.setUserName(set.getString("CardUser"));
-				cardBeansList.add(cardBean2);
+				//cardBeansList.add(cardBean2);
 				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return cardBeansList;		
+		return cardBean2;		
 	}
 	
 }

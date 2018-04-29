@@ -10,8 +10,15 @@ public class CreditCardBean extends LoginBeanVO {
 	private String comment;
 	private String cardType;
 	private String cardStatus;
+	private String cardDate;
 	
 	
+	public String getCardDate() {
+		return cardDate;
+	}
+	public void setCardDate(String cardDate) {
+		this.cardDate = cardDate;
+	}
 	public String getCardStatus() {
 		return cardStatus;
 	}

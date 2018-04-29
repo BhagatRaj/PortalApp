@@ -1,7 +1,11 @@
 package com.tutorials.demo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -17,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tutorials.dao.PortalDao;
 import com.tutorials.bean.AutoMobDataBean;
 import com.tutorials.bean.AutoMobSaveBean;
-
+import com.tutorials.bean.LapNameBean;
 import com.tutorials.bean.LaptopEmiBean;
 import com.tutorials.bean.LoginBean;
+import com.tutorials.dao.PortalDao;
 
 /**
  * 
@@ -39,7 +43,7 @@ import com.tutorials.bean.LoginBean;
 						model.addAttribute("logBean", logBean);
 						return "LoginPage";
 					}
-			
+				
 				@RequestMapping(value = "/addStudent", method = RequestMethod.POST)
 				public String addStudent(@ModelAttribute("logBean") @Valid LoginBean logBean, BindingResult result, Model model,
 								HttpServletRequest request) {
@@ -83,7 +87,6 @@ import com.tutorials.bean.LoginBean;
 					
 								mav.addObject("noList", "No Emi List for available User");
 							}
-					
 							mav.setViewName("ShowEmiList");
 							mav.addObject("emiList", list);
 							return mav;
@@ -116,9 +119,7 @@ import com.tutorials.bean.LoginBean;
 				
 				@RequestMapping(value ="/showSetup")
 					public String showSetupPage(Model model) {
-						
 						return "UserSetup";
-				
 					}
 				
 				@RequestMapping(value = "/Logout")
@@ -126,6 +127,7 @@ import com.tutorials.bean.LoginBean;
 							
 							HttpSession httpSession=request.getSession();
 							httpSession.removeAttribute("userName");
+							request.getSession().invalidate();
 							LoginBean logBean = new LoginBean();
 							model.addAttribute("logBean", logBean);
 							return "LoginPage";
@@ -137,16 +139,31 @@ import com.tutorials.bean.LoginBean;
 							LoginBean logBean = new LoginBean();
 							model.addAttribute("logBean", logBean);
 							return "Index";
-						}
-		
-				@RequestMapping(value = "/showlaptopEmi")
-				public String showlaptopEmi( Model model) {
-					LaptopEmiBean laptopEmiBean =new LaptopEmiBean();
-					model.addAttribute("laptopEmiBean",laptopEmiBean);
-					return "lapTopEmiPage";
-				}
-		
-				@RequestMapping(value = "/submitlaptopEmi")
+								}
+				
+			@RequestMapping(value = "/showlaptopEmi")
+			public String showlaptopEmi( Model model) {	
+			LaptopEmiBean laptopEmiBean=null;
+			Map<String, String> lapDropDownMap=new HashMap();
+			List laplist=new ArrayList();
+			LapNameBean lapNameBean=null;
+			laplist=portalDao.showLapList();
+			if(laplist.size()>0) {
+			Iterator iterator=laplist.iterator();
+			while(iterator.hasNext()) {
+			laptopEmiBean=(LaptopEmiBean)iterator.next();
+			lapNameBean=new LapNameBean();
+			lapNameBean.setLapNameKey(laptopEmiBean.getLapModel());
+			lapNameBean.setLapNameValue(laptopEmiBean.getLapName());
+			lapDropDownMap.put(lapNameBean.getLapNameKey(), lapNameBean.getLapNameValue());
+			}
+			}
+							
+			model.addAttribute("laptopEmiBean",lapDropDownMap);
+			return "lapTopEmiPage";
+			}
+				
+						@RequestMapping(value = "/submitlaptopEmi")
 				public String submitlaptopEmi( @ModelAttribute("laptopEmiBean") @Valid LaptopEmiBean laptopEmiBean, BindingResult result, Model model,
 						HttpServletRequest request) {
 					String success=null;
@@ -155,9 +172,24 @@ import com.tutorials.bean.LoginBean;
 					request.setAttribute(success, "successfromLap");
 					return "lapTopEmiPage";
 				}
+				
+			/*	@RequestMapping(value = "/generate/pdf.htm", method = RequestMethod.GET)
+				 ModelAndView generatePdf(HttpServletRequest request,
+				   HttpServletResponse  response) throws Exception {
+				  System.out.println("Calling generatePdf()...");
+				  
+				  AutoMobSaveBean employee = new AutoMobSaveBean();
+				  employee.setFirstName("Yashwant");
+				  employee.setLastName("Chavan");
+				  
+				  ModelAndView modelAndView = new ModelAndView("pdfView", "command",employee);
+				  
+				  return modelAndView;
+				 }*/
+			
 				/*
 				@RequestMapping(value = "/showlaptopEmi")
-				public String showLaptopDetails(Model model,
+				public String showLaptopDetails(Model model,R
 						HttpServletRequest request) {
 					String success=null;
 					LaptopEmiBean laptopEmiBean=new LaptopEmiBean();

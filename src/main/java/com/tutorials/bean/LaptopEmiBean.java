@@ -1,7 +1,5 @@
 package com.tutorials.bean;
 
-
-
 public class LaptopEmiBean {
 
 	private String lapName;
@@ -34,6 +32,5 @@ public class LaptopEmiBean {
 	public void setLapModel(String lapModel) {
 		this.lapModel = lapModel;
 	}
-	
-	
+		
 }

@@ -10,6 +10,11 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script src="<c:url value="/resource/theme1/js/userDivCommon.js"/>"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <title>Home</title>
 
 <style type="text/css">
@@ -226,16 +231,34 @@ h1 {
     text-transform: uppercase;
 }
 .userDivclass{
-  border: 1px solid #006; 
-  color:#01ACEE; 
-  font: bold 16px Tahoma; 
-  border-radius:7px; 
-  padding:0px;
-  width: 322px;
-  background-color: #b73232;
-  height: 176px;
-  margin-left: 505px;
+ 	color: #01ACEE;
+    font: bold 16px Tahoma;
+    background-color: rgba(0,0,0,0.8) !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
+
+#userPopup fieldset{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    }
+
+#userPopup fieldset table{
+width:100%;
+}
+.rightDiv{
+
+}
+
 </style>
 <% 
 String contextPath=request.getContextPath();
@@ -315,7 +338,7 @@ function checkUserValidation(){
 	      	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
 	      	<td>&nbsp;</td><td>&nbsp;</td>
 	      	<td>
-	      	<input type="button" id="userSetup" class="UserSetupDiv" value="UserSetup"onclick="calluserSetup()">
+	      	<input type="button" id="userSetup" class="UserSetupDiv" value="Register"onclick="calluserSetup()">
 		 	</td>
 		 	</tr>
 		 	</table>
@@ -325,12 +348,15 @@ function checkUserValidation(){
          
 				</div> 		
 				
-				 <div id="userPopup" class="userDivclass" style="display: none;">
-			<fieldset style="height: 90px;
-    background-color: cornsilk;">
+				<div class="rightDiv">
+				<img alt="close" class="close" id="exit_List" src="${pageContext.request.contextPath}/backgroundWall/social.png" style="height:120px;">
+				</div>
+				
+			<div id="userPopup" class="userDivclass" style="display: none;">
+			<fieldset style="height: 45px;width: 295px;background-color: #A9A9A9;border-radius: 15px;">
 			<table>
 				<tr>
-				<td>User does not exist or Password is not Correct</td>
+				<td>You are not Registered!! Please Register</td>
 				</tr>
 				<tr align="center">
 					<td><input type="button" value="OK" onclick="closeUserPopup()">
@@ -341,12 +367,7 @@ function checkUserValidation(){
 	
 	</div>
 				
-<div class="footer-panel">
-		<p class="center">© 2017 - All Rights Reserved - MedBikePortal  | <a href="#">Terms of use</a> | <a href="#">Privacy Policy</a>
-		<span class="better-view">Best viewed in Google Chrome.</span></p>
-</div>
-			 -
-
+	<jsp:include page="footer.jsp"></jsp:include>
 	</form:form>
 	</div>
 </body>

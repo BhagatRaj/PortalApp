@@ -24,6 +24,8 @@ background: none repeat scroll 0% 0% hsl(0, 75%, 95%)
 background: none repeat scroll 0% 0% #A6C67A;
 }
 
+
+
 .user-icons{
 	background: url(resource/black-bg6.png) 0 0 no-repeat;
     margin: 0;
@@ -52,6 +54,7 @@ li a {
 li a:hover:not(.active) {
     background-color: #ddd;
 }
+  
 </style>
 
 <script type="text/javascript">
@@ -69,19 +72,15 @@ $("#closeWindow").on('click', function() {
 <div>
   	<jsp:include page="nav-bar.jsp"/>
   </div>
-<!-- <div>
-<ul class="user-icons">
-<li><a href="#"><img title="Home" alt="homeicon" src="resource/home01.png"></a></li>
-</ul>
-</div> -->
 <div id="header_div">
-	<h2 align="center">Emi List for user:${userName} </h2>
+	<h2 style="font-size: 20px; font-family: serif;" align="center">Emi List for user:${userName} </h2>
+	<a href=""></a>	
 </div>
 <c:choose>
 <c:when test="${not empty emiList}">
 <c:if test="${not empty emiList}">
 <div class="gridContentAreaForEmilist">
-			 <table width="95%" cellspacing="1" cellpadding="3" border="0" style="margin: auto;">
+			 <table width="95%" cellspacing="1" cellpadding="3" border="1" style="margin: auto;">
 				<thead style="font-family:Verdana, Arial, Helvetica, sans-serif;">
 				<tr>
 				
@@ -121,7 +120,11 @@ $("#closeWindow").on('click', function() {
 	</c:choose>
 	<div align="center">
 		<a href="/PortalApp/Exit" id="">
-			<img alt="close" class="close" id="exit_List" src="resource/exit_btn_popup.gif"></a>
+			<img alt="close" class="close" id="exit_List" src="resource/exlit_btn_popup.gif"></a>
 		</div>	
+		<div>
+			<jsp:include page="footer.jsp"></jsp:include>
+		</div>
+		
 </body>
 </html>

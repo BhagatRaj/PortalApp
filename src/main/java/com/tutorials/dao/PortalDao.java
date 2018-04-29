@@ -2,6 +2,7 @@ package com.tutorials.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.tutorials.bean.AutoMobDataBean;
 import com.tutorials.bean.AutoMobSaveBean;
@@ -24,4 +25,6 @@ public interface PortalDao {
 	public String saveLaptopEmiDetails(LaptopEmiBean laptopEmiBean);
 	
 	public LaptopEmiBean showlaptopDetails(LaptopEmiBean laptopEmiBean);
+	
+	public List showLapList();
 }
