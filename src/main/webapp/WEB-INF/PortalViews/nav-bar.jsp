@@ -8,11 +8,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
+<link rel="stylesheet" type="text/css" href="styles/medCommon.css"/>
+
   <style type="text/css">
   
   .detail-box.inner {visibility: hidden;position: absolute;top: 203px;z-index: 100}
 .detail-box {width: 452px;float: left;padding: 9px;background-color: #646464;color: #FFF;}
 #popup-mask {position: absolute;top: 0;left: 0;z-index: 99;background-color: #FFF;display: none;}
+
   </style>
   
   <script type="text/javascript">
@@ -62,7 +65,7 @@
 			<br />
 			<div style="float: right;">
 				<span class="btnWrap" onclick="javascript:window.location.reload()"><span
-					class="btnbgRight"><span
+					class="btnbgRightpopup"><span
 						style="color: rgb(255, 255, 255); line-height: 24px;"
 						class="btnTxt">Refresh</span></span></span>
 			</div>
@@ -76,7 +79,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/PortalApp/ShowAddEmiPage">AddEmi</a>
+      <a class="navbar-brand" href="/PortalApp/userRegController/viewMyProfile">MyProfile</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>

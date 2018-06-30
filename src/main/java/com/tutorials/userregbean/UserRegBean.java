@@ -22,9 +22,16 @@ public class UserRegBean {
 	private String user_Email;
 	private String user_Name;
 	private String user_Pass;
-	
-	
+	private String user_address;
+	private String user_pinCode;
+	private String user_pan;
+	private String user_adhaar;
+	private String user_uan;
 
+	public  UserRegBean() {
+	
+	}
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "register_Id", unique = true, nullable = false, length = 10)
@@ -92,6 +99,63 @@ public class UserRegBean {
 		this.user_Pass = user_Pass;
 	}
 
+	@Column(name="user_address",length=100)
+	public String getUser_address() {
+		return user_address;
+	}
+	public void setUser_address(String user_address) {
+		this.user_address = user_address;
+	}
 	
+	@Column(name="user_pinCode",length=100)
+	public String getUser_pinCode() {
+		return user_pinCode;
+	}
+	public void setUser_pinCode(String user_pinCode) {
+		this.user_pinCode = user_pinCode;
+	}	
+
+	@Column(name="user_pan",length=100)
+	public String getUser_pan() {
+		return user_pan;
+	}
+	public void setUser_pan(String user_pan) {
+		this.user_pan = user_pan;
+	}
+	
+	@Column(name="user_adhaar",length=100)
+	public String getUser_adhaar() {
+		return user_adhaar;
+	}
+	public void setUser_adhaar(String user_adhaar) {
+		this.user_adhaar = user_adhaar;
+	}
+	
+	@Column(name="user_uan",length=100)
+	public String getUser_uan() {
+		return user_uan;
+	}
+	public void setUser_uan(String user_uan) {
+		this.user_uan = user_uan;
+	}
+	public UserRegBean(Integer register_Id, String user_MobNo, String user_FirstName, String user_LastName,
+			Date user_DateOfBirth, String user_Email, String user_Name, String user_Pass, String user_address,
+			String user_pinCode, String user_pan, String user_adhaar, String user_uan) {
+		super();
+		this.register_Id = register_Id;
+		this.user_MobNo = user_MobNo;
+		this.user_FirstName = user_FirstName;
+		this.user_LastName = user_LastName;
+		this.user_DateOfBirth = user_DateOfBirth;
+		this.user_Email = user_Email;
+		this.user_Name = user_Name;
+		this.user_Pass = user_Pass;
+		this.user_address = user_address;
+		this.user_pinCode = user_pinCode;
+		this.user_pan = user_pan;
+		this.user_adhaar = user_adhaar;
+		this.user_uan = user_uan;
+	}
+
 	
 }

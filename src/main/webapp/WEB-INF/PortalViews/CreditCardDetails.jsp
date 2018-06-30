@@ -46,6 +46,23 @@ h1.page-title{
 .top-bar.black.quote-box p{background-color: #FFF; color: #666; font-weight: bold; padding: 5px 30px; position: absolute; right: 10px; top: 0px;}
 .buttonAdd{background: #716d6c;color: #fff; padding: 7px 16px; border-radius: 3px; border: solid 1px #887e7a; outline: 0;}
 .buttonExit{background: #716d6c;color: #fff; padding: 7px 16px; border-radius: 3px; border: solid 1px #887e7a; outline: 0;}
+.modelbox span.home-info {
+    position: absolute;
+    bottom: 30px;
+    display: inline-block;
+    width: 86px;
+    left: 30px;
+}
+
+.morebtn {
+    background: #000 none repeat scroll 0 0;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 1px 10px;
+    display: inline-block;
+}
+
 </style>
 
 
@@ -146,7 +163,7 @@ function exitFromCredDetails(){
         	<tr>
         	<td><input type="button"  value="Exit" class="buttonExit"  onclick="exitFromCredDetails()" /></td>
         	</tr>
-        	
+        
         	</table>
         	</div>
         	

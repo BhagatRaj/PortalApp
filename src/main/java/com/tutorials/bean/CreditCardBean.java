@@ -11,8 +11,24 @@ public class CreditCardBean extends LoginBeanVO {
 	private String cardType;
 	private String cardStatus;
 	private String cardDate;
+	private String cardUser;
+	private String CVV;
 	
 	
+	
+	
+	public String getCardUser() {
+		return cardUser;
+	}
+	public void setCardUser(String cardUser) {
+		this.cardUser = cardUser;
+	}
+	public String getCVV() {
+		return CVV;
+	}
+	public void setCVV(String cVV) {
+		CVV = cVV;
+	}
 	public String getCardDate() {
 		return cardDate;
 	}

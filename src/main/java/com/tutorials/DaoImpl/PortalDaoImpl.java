@@ -154,12 +154,12 @@ public class PortalDaoImpl implements PortalDao{
 		return "Record Added";
 	}
 	
-	public String validateUserFromDb(LoginBean loginBean) {
+	public LoginBeanVO validateUserFromDb(LoginBean loginBean) {
 		LoginBeanVO beanVO=null; 
-		String status = "";
+		//String status = "";
 		List <LoginBeanVO>userDBlist=  new ArrayList<LoginBeanVO>();
 		Connection connection=null;
-		String sqlQuery="select user_Name,user_Pass from userregistrationtable";		
+		String sqlQuery="select user_Name,user_Pass,user_email from userregitable";		
 		try{
 			connection=dataSource.getConnection();	
 			PreparedStatement preparedStatement=connection.prepareStatement(sqlQuery);
@@ -167,23 +167,27 @@ public class PortalDaoImpl implements PortalDao{
 			while(resultSet.next()){
 				beanVO=new LoginBeanVO();
 				beanVO.setUserName(resultSet.getString("user_Name"));
-				beanVO.setPassWord(resultSet.getString("user_Pass"));			
+				beanVO.setPassWord(resultSet.getString("user_Pass"));
+				beanVO.setUser_Email(resultSet.getString("user_email"));
 				userDBlist.add(beanVO);
 			}
 			
 			for(int i=0; i<userDBlist.size(); i++) {
-				if(userDBlist.get(i).getUserName().equals(loginBean.getUserName()) && userDBlist.get(i).getPassWord().equals(loginBean.getPassWord())) {
-					status="Validated";
+				if(userDBlist.get(i).getUserName().equals(loginBean.getUserName())) {
+					beanVO.setStatus("validated");
+					beanVO.setUser_Email(beanVO.getUser_Email());
+					//status="Validated";
 					break;
 				}else {
-					status="notValidated";
+					beanVO.setStatus("notValidated");
+					//status="notValidated";
 				}				
 			}
 			}catch (SQLException e) {
 				e.printStackTrace();
 			}
 		
-		return status;
+		return beanVO;
 		
 		/*
 		return jdbcTemplate.query(sqlQuery, new ResultSetExtractor<String>() {

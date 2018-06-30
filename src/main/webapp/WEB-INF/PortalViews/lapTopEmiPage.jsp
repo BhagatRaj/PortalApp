@@ -69,9 +69,9 @@ $( function() {
         				</c:forEach>
         				</select>
         				</td>
-        				<td><input type="text" name="lapModel" id="lapModel" class="laptop-user-input"></td>
-        				<td><input type="text" name="lapPurchaseDate" id="lapPurchaseDate" class="laptop-user-input"></td>
-        				<td><input type="text" name="lapPurchaseEmi" id="lapPurchaseEmi" class="laptop-user-input"></td>
+        				<td><input type="text" name="lapModel" id="lapModel" class="laptop-user-input" required></td>
+        				<td><input type="text" name="lapPurchaseDate" id="lapPurchaseDate" class="laptop-user-input" required></td>
+        				<td><input type="text" name="lapPurchaseEmi" id="lapPurchaseEmi" class="laptop-user-input" required></td>
         				
         			</tr>
         		</tbody>

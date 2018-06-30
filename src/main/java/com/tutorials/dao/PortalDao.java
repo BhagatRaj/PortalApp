@@ -8,6 +8,7 @@ import com.tutorials.bean.AutoMobDataBean;
 import com.tutorials.bean.AutoMobSaveBean;
 import com.tutorials.bean.LaptopEmiBean;
 import com.tutorials.bean.LoginBean;
+import com.tutorials.bean.LoginBeanVO;
 
 public interface PortalDao {
 	
@@ -20,7 +21,7 @@ public interface PortalDao {
 	public String saveUserSetup(String userName, String userPass);
 	//public String getDetails(String s);
 	
-	public String validateUserFromDb(LoginBean loginBean);
+	public LoginBeanVO validateUserFromDb(LoginBean loginBean);
 	
 	public String saveLaptopEmiDetails(LaptopEmiBean laptopEmiBean);
 	

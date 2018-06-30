@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.tutorials.CreditDao.CreditDao;
 import com.tutorials.bean.CreditCardBean;
+import com.tutorials.bean.LaptopEmiBean;
 import com.tutorials.sqlContans.MedSqlConstants;
 
 public class CreditDaoImpl implements CreditDao {
@@ -94,6 +95,8 @@ public class CreditDaoImpl implements CreditDao {
 		return list;
 	}
 */
+	
+	
 	public CreditCardBean getcreditDetails(CreditCardBean cardBean, String userName, String test) {
 		//String sql="select CardName,CardNum,CreditExp,CredExpMonth,ExpenseYear,Comment,CardType,CardUser from creditcard where CardName=? and CardNum=? and CardUser=?";
 		CreditCardBean cardBean2=null;
@@ -140,5 +143,59 @@ public class CreditDaoImpl implements CreditDao {
 		}
 		return cardBean2;		
 	}
+
+	@Override
+	public List<CreditCardBean> getcardNumber(String cardName) {
+		Connection connection=null;
+		List cadNumberList=new ArrayList();
+		try {
+			String sqlQuery="select distinct CardNum,CardType from creditcard where CardName=?";
+			CreditCardBean cardBean=null;
+			connection=dataSource.getConnection();
+			PreparedStatement preparedStatement=connection.prepareStatement(sqlQuery);
+			preparedStatement.setString(1, cardName);
+			ResultSet resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()){
+				cardBean=new CreditCardBean();
+				cardBean.setCardNum(resultSet.getString("CardNum"));
+				cardBean.setCardType(resultSet.getString("CardType"));
+				cadNumberList.add(cardBean);
+				
+			}
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return cadNumberList;
+	}
+
+	public List <CreditCardBean>findCardDetailsForUser(String User){
+		Connection connection=null;
+		String sqlQueryForCardDetails="select cardUser,cardName,cardNumber,ExpiryDate,CVV,cardType from carddetails where cardUser=?";
+		List<CreditCardBean> beansList=new ArrayList<>();
+		try {
+			CreditCardBean cardBean=null;
+			connection=dataSource.getConnection();
+			PreparedStatement preparedStatement=connection.prepareStatement(sqlQueryForCardDetails);
+			preparedStatement.setString(1, User);
+			ResultSet resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()){
+				cardBean=new CreditCardBean();
+				cardBean.setCardUser(resultSet.getString("cardUser"));
+				cardBean.setCardName(resultSet.getString("cardName"));
+				cardBean.setCardNum(resultSet.getString("cardNumber"));
+				cardBean.setCreditExpYear(resultSet.getString("ExpiryDate"));
+				cardBean.setCVV(resultSet.getString("CVV"));
+				cardBean.setCardType(resultSet.getString("cardType"));
+				beansList.add(cardBean);
+				
+			}
+		
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return beansList;
 	
-}
+	}
+	}

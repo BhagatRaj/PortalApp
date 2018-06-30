@@ -16,7 +16,7 @@
 <style type="text/css">
 
  .frm-txt{font-size: 14px; padding-top: 15px;text-align: left;}
- .body {margin: 0;padding: 0;color: #000;font-family: Arial, Helvetica, sans-serif;width: 100%;font-size:13px; }
+ .body {margin: 10px;padding: 0;color: #000;font-family: Arial, Helvetica, sans-serif;font-size:13px; }
  .pd-B15{padding-bottom: 15px;}
 
 .laptop-user-input{
@@ -28,7 +28,7 @@ width:150px;
 .showCreditDiv{
 background-image: url(${pageContext.request.contextPath}/backgroundWall/background6.jpg);
 	margin: 0 auto;
-	min-height: 557px;
+	min-height: 335px;
 	height: auto;
 	border-radius: 8px;
 }
@@ -43,7 +43,7 @@ background-image: url(${pageContext.request.contextPath}/backgroundWall/backgrou
     font-family: serif;
     font-style: inherit;
     font-color:white;
-     text-decoration: underline;
+     text-decoration: none;
 } 
 
 
@@ -52,7 +52,7 @@ background-image: url(${pageContext.request.contextPath}/backgroundWall/backgrou
 .top-bar h1.innerHd,.top-bar h2.innerHd {line-height: normal;padding-top: 8px;height: 34px;}
 .top-bar h1,.top-bar h2 {font-size: 14px;font-weight: bold;line-height: 42px;padding-left: 15px;text-transform: uppercase;color: #E9E9E9;}
 
-.top-bar.black.quote-box p{background-color: #FFF; color: #666; font-weight: bold; padding: 5px 30px; position: absolute; right: 10px; top: 0px;}
+.top-bar.black.quote-box p{background-color: #403838;color: #f9eeee;font-weight: bold;padding: 1px 100px;position: absolute;right: 10px;top: 0px;}
 .getDetails{background: #716d6c;
     color: #fff;
     padding: 3px 12px;
@@ -77,6 +77,44 @@ background-image: url(${pageContext.request.contextPath}/backgroundWall/backgrou
 $( function() {
     $("#cardDate").datepicker({  maxDate: new Date() });
   } );
+	
+	
+	function getCardNumber(currentValue){
+		var currentValue=currentValue.value;
+		alert(currentValue);
+
+
+		
+		
+		 $.ajax({
+			url:'/PortalApp/CreditController/getcardNumber',
+			type:'GET',
+			dataType:'html',
+			data:'cardName='+currentValue,
+			
+			success:function(data){
+				console.log(data);
+				var autData=data;
+				if(autData == ''){
+					document.getElementById('warning-pop').style.display='block';
+				}else{
+					document.getElementById('listOfEmiDetails').style.display='block';
+					document.getElementById("cardNa").innerHTML =autData[0];
+					document.getElementById("cardNu").innerHTML =autData[1];
+					document.getElementById("expense").innerHTML =autData[2];
+					document.getElementById("expenseYr").innerHTML =autData[3];
+					document.getElementById("expenseDesc").innerHTML =autData[4];
+					document.getElementById("typeCard").innerHTML =autData[5];
+					document.getElementById("userCard").innerHTML =autData[6];
+				}
+			},
+			error: function(result){
+				
+				alert("No data Found");
+				
+			}
+		}); 
+	}
 	
 function getCardDetails(){
 	var cardName=document.getElementById('cardName').value;
@@ -141,7 +179,7 @@ function getCardDetails(){
 					</p>
 
 <div class="showCreditDiv">
-<div class="creditDiv" style=" background: #e2e8ca;  width: 1003px; font:normal 11px/48px Arial, sans-serif; font-weight: bold; line-height: 0px; padding-left: 0px;  text-transform: uppercase;
+<div class="creditDiv" style=" background: #e2e8ca;  width: 1286px; font:normal 11px/48px Arial, sans-serif; font-weight: bold; line-height: 0px; padding-left: 0px;  text-transform: uppercase;
     color: #7d0404;">
 		<fieldset style="border-radius:10px;">
 			<legend></legend>
@@ -150,13 +188,13 @@ function getCardDetails(){
 					<td class="frm-txt pd-B15">
 					<strong>Card Name:</strong> </td>
 					<td>
-					<select id="cardName" class="laptop-user-input" name="cardName">
+					<select id="cardName" class="laptop-user-input" name="cardName" onchange="getCardNumber(this)">
 						<option value="select">Select</option>
 						<option value="HDFC">HDFC</option>
 						<option value="AXIS">AXIS</option>
 						<option value="Bank of Baroda">Bank of Baroda</option>
-						<option value="SBI">SBI</option>
-							</select>
+						<option value="SBI">SBI</option> 
+						</select>
 					</td>
 					<td class="frm-txt pd-B15">
 					<strong>Card Number: </strong><input type="text" name="cardNum" id="cardNum" class="card-input"/>

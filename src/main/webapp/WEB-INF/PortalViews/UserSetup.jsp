@@ -247,13 +247,9 @@ $( function() {
 								maxlength="40" placeholder="MM/DD/YYYY" required><span class="red-font">*</span></li>
 							<li><label for="user_Email">Email: </label> <input
 								type="email" name="user_Email" id="user_Email" tabindex="1"
-								value="" title="Please enter your Email Id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="40" required><span
+								value="" title="Please enter your Email Id" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" maxlength="40" required><span
 								class="red-font">*</span></li>
 
-							<li><label for="user_MobNo">Mobile No: </label> <input
-								type="tel" name="user_MobNo" id="user_MobNo" tabindex="1"
-								value="" title="Please enter your Mob No."   maxlength="10" required><span
-								class="red-font">*</span></li>
 							<li><label for="user_Name">UserName: </label> <input
 								type="text" name="user_Name" id="user_Name" tabindex="1"
 								value="" title="Please enter your User." maxlength="40" required><span
@@ -262,6 +258,32 @@ $( function() {
 								type="password" name="user_Pass" id="user_Pass" tabindex="1"
 								value="" title="Please enter your password" maxlength="40" required><span
 								class="red-font">*</span></li>
+		
+							<li><label for="user_Pass">Address: </label> <input
+								type="text" name="user_address" id="user_address" tabindex="1"
+								value="" title="enter your address" maxlength="40" required><span
+								class="red-font">*</span></li>
+								
+							<li><label for="user_Pass">PinCode: </label> <input
+								type="text" name="user_pinCode" id="user_pinCode" tabindex="1"
+								value="" title="enter pincode" maxlength="40" required><span
+								class="red-font">*</span></li>	
+							<li><label for="user_Pass">PanNo: </label> <input
+								type="text" name="user_pan" id="user_pan" tabindex="1"
+								value="" title="enter pan" maxlength="40" required><span
+								class="red-font">*</span></li>	
+							<li><label for="user_Pass">AdhaarNo: </label> <input
+								type="text" name="user_adhaar" id="user_adhaar" tabindex="1"
+								value="" title="enter adhaar" maxlength="40" required><span
+								class="red-font">*</span></li>	
+							<li><label for="user_Pass">UAN no: </label> <input
+								type="text" name="user_uan" id="user_uan" tabindex="1"
+								value="" title="enter uan" maxlength="40" required><span
+								class="red-font">*</span></li>
+							<li><label for="user_Pass">Mobile no: </label> <input
+								type="text" name="user_MobNo" id="user_MobNo" tabindex="1"
+								value="" title="enter mobile" maxlength="10" required><span
+								class="red-font">*</span></li>					
 
 						</ul>
 						<input type="submit" id="submitForm" value="Register" class="btn btn-success"/>

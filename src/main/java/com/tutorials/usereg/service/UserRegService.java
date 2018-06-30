@@ -10,4 +10,6 @@ public interface UserRegService {
 	
 	public String addUserRegDetails(UserRegBean userRegBean);
 	
+	public UserRegBean viewMyProfile(String userEmai_id); 
+	
 }

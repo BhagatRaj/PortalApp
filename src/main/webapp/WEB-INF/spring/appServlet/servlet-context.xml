@@ -17,6 +17,7 @@
 	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/backgroundWall/**" location="/backgroundWall/" />
+	<mvc:resources mapping="/css/**" location="/styles/" />
 	<mvc:default-servlet-handler/>
 	
 	<context:property-placeholder location="classpath:database.properties"/>
@@ -52,8 +53,14 @@
                 </beans:props>
             </beans:property>
 	</beans:bean>
+ <!-- Hibernate Template Configuration -->
  
- 
+ <beans:bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+	<beans:property name="sessionFactory">
+	  <beans:ref bean="sessionFactory" />
+	</beans:property>
+</beans:bean>
+ <!-- Hibernate configuration Ends -->
  
 	<beans:bean class="org.springframework.orm.hibernate5.HibernateTransactionManager"
             id="hibernateTransactionManager">
@@ -78,6 +85,11 @@
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/PortalViews/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/UserRegistration/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 

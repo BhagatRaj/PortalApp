@@ -4,40 +4,44 @@ package com.tutorials.demo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tutorials.CreditDao.CreditDao;
 import com.tutorials.bean.CreditCardBean;
+import com.tutorials.usereg.service.UserRegService;
 
 
 
 @Controller
 @RequestMapping("CreditController")
 		public class CreditController {
-			
+	private static final String baseURL = "http://localhost:8080/RestFulWS/rest/creditcardDetails";
 		
 			@Autowired
 			CreditDao creditDao;
 		
+			@Autowired
+			UserRegService userRegService;
+			
 			@RequestMapping(value="/CreditDetails")
 			public String CreditDetails(Model model,  HttpServletRequest request) {
 				//test for git
@@ -100,10 +104,25 @@ import com.tutorials.bean.CreditCardBean;
 			
 			
 			@RequestMapping(value = "/showDetailsForCreditEmi")
-			public String showDetailsForCreditEmi(Model model) {
+			public String showDetailsForCreditEmi(Model model,ModelMap map, HttpServletRequest request) {
+				HttpSession session=request.getSession(true);
 				CreditCardBean creditCardBean=new CreditCardBean();
+				RestTemplate restTemplate = new RestTemplate();
+				ResponseEntity<CreditCardBean> responseEntity=null;
+				String userName=(String)session.getAttribute("userName");
+				HttpEntity<CreditCardBean> restrequest = new HttpEntity<>(creditCardBean);
+				
+				
+				/*
+				if(null !=userName && !userName.isEmpty()) {
+					creditCardBean=restTemplate.postForObject(baseURL, creditCardBean, CreditCardBean.class);	
+				}*/
+				//System.out.println(responseEntity.getBody());
+				List<CreditCardBean> cardInfoList=creditDao.findCardDetailsForUser(userName);
+				//request.setAttribute("cardInfoList", cardInfoList);
+				model.addAttribute("cardInfoList", cardInfoList);
 				model.addAttribute("creditCardBean", creditCardBean);
-				return "showCreditDetails";
+				return "creditDetailsTabs";
 			}
 
 			@RequestMapping(value="/showCreditDetialsForCard", method = RequestMethod.GET)
@@ -129,5 +148,16 @@ import com.tutorials.bean.CreditCardBean;
 				request.setAttribute("showCreditList", showCreditList);
 				
 				return showCreditList;
+			}
+			
+			@RequestMapping(value="/getcardNumber", method = RequestMethod.GET)
+			public @ResponseBody List<CreditCardBean> getcardNumber(@RequestParam("cardName")String cardName) {
+				
+				List <CreditCardBean>list=new ArrayList<CreditCardBean>();
+				
+				CreditCardBean cardBean2=new CreditCardBean();
+				list=creditDao.getcardNumber(cardName);
+				
+				return list;
 			}
 }
