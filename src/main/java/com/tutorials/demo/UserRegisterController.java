@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tutorials.Utils.Encryption;
+import com.tutorials.bean.ChangePassword;
 import com.tutorials.bean.LoginBean;
 import com.tutorials.usereg.service.UserRegService;
 import com.tutorials.userregbean.UserRegBean;
@@ -35,14 +36,10 @@ import com.tutorials.userregbean.UserRegBean;
 			    }
 		
 			@RequestMapping(value="/viewMyProfile")
-			public String viewMyProfile(ModelMap model, HttpServletRequest request,
-						HttpServletResponse response) throws Exception {
-					
+			public String viewMyProfile(ModelMap model, HttpServletRequest request,	HttpServletResponse response) throws Exception {
 					HttpSession session = request.getSession();
 					LoginBean userSession = (LoginBean) session.getAttribute(com.tutorials.Utils.Constants.USER_SESSION_MODEL);
 					String userEmai_id=(String)session.getAttribute(com.tutorials.Utils.Constants.USER_SESSION_EMAIL);
-					
-					
 					if(userSession !=null) {
 						UserRegBean regBean=null;
 						
@@ -56,8 +53,19 @@ import com.tutorials.userregbean.UserRegBean;
 					}else {
 						
 						//model.put(key, value)
-					}
-					
+					}	
 					return "viewProfile";
 				}
+			
+			@RequestMapping(value="/changePassword")
+			public String changePassword(ModelMap model, HttpServletRequest request,
+						HttpServletResponse response) throws Exception {
+				HttpSession session = request.getSession();
+				if (session.getAttribute(com.tutorials.Utils.Constants.USER_SESSION_MODEL) != null) {
+					model.put(com.tutorials.Utils.Constants.CHANGE_PASSWORD, new ChangePassword());
+					return "changePassword";
+				}
+				return "/login";
+			}
+			
 }

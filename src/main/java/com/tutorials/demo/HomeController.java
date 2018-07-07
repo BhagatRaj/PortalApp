@@ -35,173 +35,173 @@ import com.tutorials.dao.PortalDao;
  * Handles requests for the application home page.
  */
 			@Controller
-	public class HomeController {
-		@Autowired
-		PortalDao portalDao;
-		
-		
-		@RequestMapping(value = "/", method = RequestMethod.GET)
-		public String home(Model model) {
-			LoginBean logBean = new LoginBean();
-			model.addAttribute("logBean", logBean);
-			return "LoginPage";
-		}
-	
-	@RequestMapping(value = "/addStudent", method = RequestMethod.POST)
-	public String addStudent(@ModelAttribute("logBean") @Valid LoginBean logBean, BindingResult result, Model model,HttpServletRequest request) {
-	HttpSession session = request.getSession(true);
-	LoginBeanVO beanVO=null;
-	if (result.hasErrors()) {
-		return "LoginPage";
-	}
-	String validationfromDb;
-	beanVO=portalDao.validateUserFromDb(logBean);
-	if("notValidated".equals(beanVO.getStatus())) {
-	request.setAttribute("notValidatedFlag", "Y");
-	return "LoginPage";
-	}
-	session.setAttribute("userName", logBean.getUserName());
-	session.setAttribute(com.tutorials.Utils.Constants.USER_SESSION_EMAIL, beanVO.getUser_Email());
-	session.setAttribute(com.tutorials.Utils.Constants.USER_SESSION_MODEL, logBean);
-	//session.setAttribute("mobNo", beanVO.getUser_MobNo());
-	return "Index";
-	}
-			
-	@RequestMapping(value = "/showDetailsforAutMob")
-	public @ResponseBody List<AutoMobDataBean> showDetailsforAutMob(@RequestParam("modelNum") String bikeModel,
-					@RequestParam("datepicker") String year) {
-				List list = new ArrayList();
-				AutoMobDataBean autoMobDataBean = new AutoMobDataBean();
-				autoMobDataBean = portalDao.findVehicleDetails(bikeModel, year, autoMobDataBean);
-				list.add(autoMobDataBean.getModelNum());
-				list.add(autoMobDataBean.getDatepicker());
-				list.add(autoMobDataBean.getEngineCC());
-				list.add(autoMobDataBean.getMileage());
-				list.add(autoMobDataBean.getTopSpeed());
-				return list;
-			}
-	
-	@RequestMapping(value = "/showEmiList")
-			public ModelAndView showEmiList(@RequestParam("userName") String userName, ModelAndView mav) {
-				AutoMobSaveBean mobshowBean = new AutoMobSaveBean();
-				List list = new ArrayList();
-				if (null != userName && userName.equals("vicky")) {
-		
-					list = portalDao.findEmiOption(userName, mobshowBean);
-				} else {
-		
-					mav.addObject("noList", "No Emi List for available User");
-				}
-				mav.setViewName("ShowEmiList");
-				mav.addObject("emiList", list);
-				return mav;
-			}
-	
-	@RequestMapping(value = "/ShowAddEmiPage")
-		public String AddDetails() {
-			return "addEmiforAutMob";
-		}
-	
-	@RequestMapping(value = "/addEmiforAutMob", method = RequestMethod.POST)
-	public @ResponseBody String addEmiforAutMob(@RequestParam("month") String month,@RequestParam("amountPaid") String amountPaid, @RequestParam("paidDate") String paidDate,@RequestParam("bikeName") String bikeName)
-			{
-				AutoMobSaveBean autoMobSaveBean = new AutoMobSaveBean();
-				autoMobSaveBean.setMonth(month);
-				autoMobSaveBean.setAmountToPaid(amountPaid);
-				autoMobSaveBean.setDateOfPaid(paidDate);
-				autoMobSaveBean.setBikeName(bikeName);
-				autoMobSaveBean = portalDao.saveEmiDetails(autoMobSaveBean);
-				return "Data saved Successfully";
-			}
-	
-	@RequestMapping(value="/doSetup")
-		public @ResponseBody String doSetup(@RequestParam("userName")String userName,
-				@RequestParam("userPass")String userPass,
-					HttpServletRequest request){
-					String success=portalDao.saveUserSetup(userName,userPass);
-					return success;
-			}
-	
-	@RequestMapping(value ="/showSetup")
-		public String showSetupPage(Model model) {
-			return "UserSetup";
-		}
-	
-	@RequestMapping(value = "/Logout")
-			public String Logout(Model model, HttpServletRequest request) {
+			public class HomeController {
+				@Autowired
+				PortalDao portalDao;
 				
-				HttpSession httpSession=request.getSession();
-				httpSession.removeAttribute("userName");
-				request.getSession().invalidate();
-				LoginBean logBean = new LoginBean();
-				model.addAttribute("logBean", logBean);
+				
+				@RequestMapping(value = "/", method = RequestMethod.GET)
+				public String home(Model model) {
+					LoginBean logBean = new LoginBean();
+					model.addAttribute("logBean", logBean);
+					return "LoginPage";
+				}
+			
+			@RequestMapping(value = "/addStudent", method = RequestMethod.POST)
+			public String addStudent(@ModelAttribute("logBean") @Valid LoginBean logBean, BindingResult result, Model model,HttpServletRequest request) {
+			HttpSession session = request.getSession(true);
+			LoginBeanVO beanVO=null;
+			if (result.hasErrors()) {
 				return "LoginPage";
-		
 			}
-	
-	@RequestMapping(value = "/Exit")
-			public String Exit(Model model) {
-				LoginBean logBean = new LoginBean();
-				model.addAttribute("logBean", logBean);
+				String validationfromDb;
+				beanVO=portalDao.validateUserFromDb(logBean);
+				if("notValidated".equals(beanVO.getStatus())) {
+				request.setAttribute("notValidatedFlag", "Y");
+				return "LoginPage";
+			}
+				session.setAttribute("userName", logBean.getUserName());
+				session.setAttribute(com.tutorials.Utils.Constants.USER_SESSION_EMAIL, beanVO.getUser_Email());
+				session.setAttribute(com.tutorials.Utils.Constants.USER_SESSION_MODEL, logBean);
+				//session.setAttribute("mobNo", beanVO.getUser_MobNo());
 				return "Index";
+			}
+					
+			@RequestMapping(value = "/showDetailsforAutMob")
+			public @ResponseBody List<AutoMobDataBean> showDetailsforAutMob(@RequestParam("modelNum") String bikeModel,
+							@RequestParam("datepicker") String year) {
+						List list = new ArrayList();
+						AutoMobDataBean autoMobDataBean = new AutoMobDataBean();
+						autoMobDataBean = portalDao.findVehicleDetails(bikeModel, year, autoMobDataBean);
+						list.add(autoMobDataBean.getModelNum());
+						list.add(autoMobDataBean.getDatepicker());
+						list.add(autoMobDataBean.getEngineCC());
+						list.add(autoMobDataBean.getMileage());
+						list.add(autoMobDataBean.getTopSpeed());
+						return list;
+					}
+			
+			@RequestMapping(value = "/showEmiList")
+					public ModelAndView showEmiList(@RequestParam("userName") String userName, ModelAndView mav) {
+						AutoMobSaveBean mobshowBean = new AutoMobSaveBean();
+						List list = new ArrayList();
+						if (null != userName && userName.equals("vicky")) {
+				
+							list = portalDao.findEmiOption(userName, mobshowBean);
+						} else {
+				
+							mav.addObject("noList", "No Emi List for available User");
 						}
-		
-	@RequestMapping(value = "/showlaptopEmi")
-			public String showlaptopEmi( Model model) {	
-			LaptopEmiBean laptopEmiBean=null;
-			Map<String, String> lapDropDownMap=new HashMap();
-			List laplist=new ArrayList();
-			LapNameBean lapNameBean=null;
-			laplist=portalDao.showLapList();
-			if(laplist.size()>0) {
-			Iterator iterator=laplist.iterator();
-			while(iterator.hasNext()) {
-			laptopEmiBean=(LaptopEmiBean)iterator.next();
-			lapNameBean=new LapNameBean();
-			lapNameBean.setLapNameKey(laptopEmiBean.getLapModel());
-			lapNameBean.setLapNameValue(laptopEmiBean.getLapName());
-			lapDropDownMap.put(lapNameBean.getLapNameKey(), lapNameBean.getLapNameValue());
-			}
-			}
-							
-			model.addAttribute("laptopEmiBean",lapDropDownMap);
-			return "lapTopEmiPage";
-			}
-	
-			@RequestMapping(value = "/submitlaptopEmi")
-	public String submitlaptopEmi( @ModelAttribute("laptopEmiBean") @Valid LaptopEmiBean laptopEmiBean, BindingResult result, Model model,
-			HttpServletRequest request) {
-		String success=null;
-		model.addAttribute("laptopEmiBean",laptopEmiBean);
-		success=portalDao.saveLaptopEmiDetails(laptopEmiBean);
-		request.setAttribute(success, "successfromLap");
-		return "lapTopEmiPage";
-	}
-	
-	/*	@RequestMapping(value = "/generate/pdf.htm", method = RequestMethod.GET)
-		 ModelAndView generatePdf(HttpServletRequest request,
-		   HttpServletResponse  response) throws Exception {
-		  System.out.println("Calling generatePdf()...");
-		  
-		  AutoMobSaveBean employee = new AutoMobSaveBean();
-		  employee.setFirstName("Yashwant");
-		  employee.setLastName("Chavan");
-		  
-		  ModelAndView modelAndView = new ModelAndView("pdfView", "command",employee);
-		  
-		  return modelAndView;
-		 }*/
-	
-	/*
-	@RequestMapping(value = "/showlaptopEmi")
-	public String showLaptopDetails(Model model,R
-			HttpServletRequest request) {
-		String success=null;
-		LaptopEmiBean laptopEmiBean=new LaptopEmiBean();
-		model.addAttribute("laptopEmiBean",laptopEmiBean);
-		laptopEmiBean=portalDao.showlaptopDetails(laptopEmiBean);
-		request.setAttribute(success, "successfromLap");
-		return "lapTopEmiPage";
-	}
-	*/
+						mav.setViewName("ShowEmiList");
+						mav.addObject("emiList", list);
+						return mav;
+					}
+			
+			@RequestMapping(value = "/ShowAddEmiPage")
+				public String AddDetails() {
+					return "addEmiforAutMob";
+				}
+			
+			@RequestMapping(value = "/addEmiforAutMob", method = RequestMethod.POST)
+			public @ResponseBody String addEmiforAutMob(@RequestParam("month") String month,@RequestParam("amountPaid") String amountPaid, @RequestParam("paidDate") String paidDate,@RequestParam("bikeName") String bikeName)
+					{
+						AutoMobSaveBean autoMobSaveBean = new AutoMobSaveBean();
+						autoMobSaveBean.setMonth(month);
+						autoMobSaveBean.setAmountToPaid(amountPaid);
+						autoMobSaveBean.setDateOfPaid(paidDate);
+						autoMobSaveBean.setBikeName(bikeName);
+						autoMobSaveBean = portalDao.saveEmiDetails(autoMobSaveBean);
+						return "Data saved Successfully";
+					}
+			
+			@RequestMapping(value="/doSetup")
+				public @ResponseBody String doSetup(@RequestParam("userName")String userName,
+						@RequestParam("userPass")String userPass,
+							HttpServletRequest request){
+							String success=portalDao.saveUserSetup(userName,userPass);
+							return success;
+					}
+			
+			@RequestMapping(value ="/showSetup")
+				public String showSetupPage(Model model) {
+					return "UserSetup";
+				}
+			
+			@RequestMapping(value = "/Logout")
+					public String Logout(Model model, HttpServletRequest request) {
+						
+						HttpSession httpSession=request.getSession();
+						httpSession.removeAttribute("userName");
+						request.getSession().invalidate();
+						LoginBean logBean = new LoginBean();
+						model.addAttribute("logBean", logBean);
+						return "LoginPage";
+				
+					}
+			
+			@RequestMapping(value = "/Exit")
+					public String Exit(Model model) {
+						LoginBean logBean = new LoginBean();
+						model.addAttribute("logBean", logBean);
+						return "Index";
+								}
+				
+			@RequestMapping(value = "/showlaptopEmi")
+					public String showlaptopEmi( Model model) {	
+					LaptopEmiBean laptopEmiBean=null;
+					Map<String, String> lapDropDownMap=new HashMap();
+					List laplist=new ArrayList();
+					LapNameBean lapNameBean=null;
+					laplist=portalDao.showLapList();
+					if(laplist.size()>0) {
+					Iterator iterator=laplist.iterator();
+					while(iterator.hasNext()) {
+					laptopEmiBean=(LaptopEmiBean)iterator.next();
+					lapNameBean=new LapNameBean();
+					lapNameBean.setLapNameKey(laptopEmiBean.getLapModel());
+					lapNameBean.setLapNameValue(laptopEmiBean.getLapName());
+					lapDropDownMap.put(lapNameBean.getLapNameKey(), lapNameBean.getLapNameValue());
+					}
+					}
+									
+					model.addAttribute("laptopEmiBean",lapDropDownMap);
+					return "lapTopEmiPage";
+					}
+			
+					@RequestMapping(value = "/submitlaptopEmi")
+			public String submitlaptopEmi( @ModelAttribute("laptopEmiBean") @Valid LaptopEmiBean laptopEmiBean, BindingResult result, Model model,
+					HttpServletRequest request) {
+				String success=null;
+				model.addAttribute("laptopEmiBean",laptopEmiBean);
+				success=portalDao.saveLaptopEmiDetails(laptopEmiBean);
+				request.setAttribute(success, "successfromLap");
+				return "lapTopEmiPage";
+			}		
+					
+			/*	@RequestMapping(value = "/generate/pdf.htm", method = RequestMethod.GET)
+				 ModelAndView generatePdf(HttpServletRequest request,
+				   HttpServletResponse  response) throws Exception {
+				  System.out.println("Calling generatePdf()...");
+				  
+				  AutoMobSaveBean employee = new AutoMobSaveBean();
+				  employee.setFirstName("Yashwant");
+				  employee.setLastName("Chavan");
+				  
+				  ModelAndView modelAndView = new ModelAndView("pdfView", "command",employee);
+				  
+				  return modelAndView;
+				 }*/
+			
+			/*
+			@RequestMapping(value = "/showlaptopEmi")
+			public String showLaptopDetails(Model model,
+					HttpServletRequest request) {
+				String success=null;
+				LaptopEmiBean laptopEmiBean=new LaptopEmiBean();
+				model.addAttribute("laptopEmiBean",laptopEmiBean);
+				laptopEmiBean=portalDao.showlaptopDetails(laptopEmiBean);
+				request.setAttribute(success, "successfromLap");
+				return "lapTopEmiPage";
+			}*/
+			
 }

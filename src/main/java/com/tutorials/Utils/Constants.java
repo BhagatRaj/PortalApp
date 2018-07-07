@@ -4,5 +4,5 @@ public abstract class Constants {
 
 	public static final String USER_SESSION_MODEL= "userSessionModel";
 	public static final String USER_SESSION_EMAIL="userSessionEmail";
-	
+	public static final String CHANGE_PASSWORD = "changePassword";
 }

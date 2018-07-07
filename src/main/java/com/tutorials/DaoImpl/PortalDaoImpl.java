@@ -175,7 +175,7 @@ public class PortalDaoImpl implements PortalDao{
 			for(int i=0; i<userDBlist.size(); i++) {
 				if(userDBlist.get(i).getUserName().equals(loginBean.getUserName())) {
 					beanVO.setStatus("validated");
-					beanVO.setUser_Email(beanVO.getUser_Email());
+					beanVO.setUser_Email(userDBlist.get(i).getUser_Email());
 					//status="Validated";
 					break;
 				}else {

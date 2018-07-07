@@ -29,3 +29,4 @@ a.button {background: url("../resource/button_right_bg.png") no-repeat scroll ri
 .btnWrap span.btnTxt {color: #FFFFFF;cursor: pointer;float: left;padding: 0 9px 0 4px;text-transform: uppercase;font-weight: normal;font-size: 10px;text-align: center;}
 .btnWrap,.btnbgRight,.btnTxt {display: inline-block;float: left;}
 a.button span {background: url("../resource/button_left_bg.png") no-repeat scroll 0 0 transparent;display: block;line-height: 14px;padding: 5px 4px 5px 12px;}
+.heading{font-family: sans-serif;font-style: normal;font-weight: bold;}

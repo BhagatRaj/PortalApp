@@ -111,8 +111,6 @@ import com.tutorials.usereg.service.UserRegService;
 				ResponseEntity<CreditCardBean> responseEntity=null;
 				String userName=(String)session.getAttribute("userName");
 				HttpEntity<CreditCardBean> restrequest = new HttpEntity<>(creditCardBean);
-				
-				
 				/*
 				if(null !=userName && !userName.isEmpty()) {
 					creditCardBean=restTemplate.postForObject(baseURL, creditCardBean, CreditCardBean.class);	

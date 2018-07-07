@@ -22,7 +22,7 @@ function exitFromCredDetails(){
 <div id="content" class="two-column">
 <div id="left-column" class="spcolumn top-bar graish corner-all black_bg" style="border-radius: 4px; height: 551px;">
 			<h2 class="gray">WELCOME TO PROFILE</h2>
-	<img src="${pageContext.request.contextPath}/resource/left_image_myprofile.jpg" width="216" height="360" border="0"><br>			
+	<img src="${pageContext.request.contextPath}/resource/left-banner-images/left_image_myprofile.jpg" width="216" height="360" border="0"><br>			
 	<p id="left-content">
 			Update and Manage your profile or change your password here.
 			</p>
@@ -34,50 +34,50 @@ function exitFromCredDetails(){
 				    padding-bottom: 20px;">	
 				<ul class="left-row">
 				 <li>
-								   <label>Name:</label><span>${regBeanModel.user_FirstName}</span>
+								   <label class="heading">Name:</label><span>${regBeanModel.user_FirstName}</span>
 								   </li>
 								     <li>
-								   <label>Last Name:</label><span>${regBeanModel.user_LastName}</span>
+								   <label class="heading">Last Name:</label><span>${regBeanModel.user_LastName}</span>
 								   </li>
 								     <li>
-								   <label>DOB :</label><span>${regBeanModel.user_DateOfBirth}</span>
+								   <label class="heading">DOB :</label><span>${regBeanModel.user_DateOfBirth}</span>
 								   </li>
 								     <li>
-								   <label>UserName :</label><span>${regBeanModel.user_Name}</span>
+								   <label class="heading">UserName :</label><span>${regBeanModel.user_Name}</span>
 								   </li>
 								    <li>
-								   <label>Email :</label><span>${regBeanModel.user_Email}</span>
+								   <label class="heading">Email :</label><span>${regBeanModel.user_Email}</span>
 								   </li>
 								    <li>
-								   <label>Address :</label><span>${regBeanModel.user_address}</span>
+								   <label class="heading">Address :</label><span>${regBeanModel.user_address}</span>
 								   </li>
 				
 				</ul>
 				
 				 <ul class="right-row">
 								   <li>
-								   <label>Pin Code:</label><span>${regBeanModel.user_pinCode}</span>
+								   <label class="heading">Pin Code:</label><span>${regBeanModel.user_pinCode}</span>
 								   </li>
 								    <li>
-								   <label>Pan No :</label><span>${regBeanModel.user_pan}</span>
+								   <label class="heading">Pan No :</label><span>${regBeanModel.user_pan}</span>
 								   </li>
 								    <li>
-								   <label>Adhaar No:</label><span>${regBeanModel.user_adhaar}</span>
+								   <label class="heading">Adhaar No:</label><span>${regBeanModel.user_adhaar}</span>
 								   </li>
 								    <li>
-								   <label>UAN :</label><span>${regBeanModel.user_uan}</span>
+								   <label class="heading">UAN :</label><span>${regBeanModel.user_uan}</span>
 								   </li>
 								    <li>
-								   <label>Mob No :</label><span>${regBeanModel.user_MobNo}</span>
+								   <label class="heading">Mob No :</label><span>${regBeanModel.user_MobNo}</span>
 								   </li>
 				
 								   </ul>
 				
 				</div>
-				</div>
+		</div>
 			<div class="right-align">
 				<div class="right-btn">
-					<span class="btnWrap" onclick="document.location.href='changePassword.htm'"><span class="btnbgRight"><span style="color: rgb(255, 255, 255); line-height: 24px;" class="btnTxt">CHANGE PASSWORD</span></span></span>
+					<span class="btnWrap" onclick="document.location.href='/PortalApp/userRegController/changePassword'"><span class="btnbgRight"><span style="color: rgb(255, 255, 255); line-height: 24px;" class="btnTxt">CHANGE PASSWORD</span></span></span>
 					<a href="/PortalApp/Exit" class="button"><span>Cancel</span></a>
 				</div>				
 				<div class="left-btn">
